@@ -12,10 +12,11 @@ public abstract class Piece {
 	protected final int piecePosition;
 	protected final Alliance pieceAllience;
 	
-	Piece(final int piecePosition,final Alliance pieceAlliance)
+	Piece(final int piecePosition,final Alliance pieceAlliance)  
 	{
 		this.piecePosition=piecePosition;
 		this.pieceAllience=pieceAlliance;
+		
 	}
 	
 	public Alliance getPieceAlliance()
