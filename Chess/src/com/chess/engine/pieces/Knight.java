@@ -1,6 +1,7 @@
 package com.chess.engine.pieces;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.chess.engine.Alliance;
@@ -19,39 +20,56 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	public List<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> calculateLegalMoves(final Board board) {
 		
-		int CandidateDestinationCoordinate;
+		
 		final List<Move> legalMoves=new ArrayList<>();
 		
 		for(final int currentcandidate : CANDIDATE_MOVE_COORDINATES)
 		{
-			CandidateDestinationCoordinate=this.piecePosition+currentcandidate;
-			
+			if(isFirstColumnExclusion(this.piecePosition,currentcandidate) || isSeventhColumnExclusion(this.piecePosition,currentcandidate) || isSecondColumnExclusion(this.piecePosition,currentcandidate) || isEighthColumnExclusion(this.piecePosition,currentcandidate))
+			{
+				continue;
+			}
+			final int CandidateDestinationCoordinate=this.piecePosition+currentcandidate;
 			if(isValidCoordinate(CandidateDestinationCoordinate))
 			{
 				final Tile candidateDestinationTile=board.getTile(CandidateDestinationCoordinate);
 				if(!candidateDestinationTile.isTileOccupied())
 				{
-					legalMoves.add(new Move());
+					legalMoves.add(new Move.MajorMove(board,this,CandidateDestinationCoordinate));
 				}
 				else
 				{
 					final Piece pieceAtDestination = candidateDestinationTile.getPiece();
 					final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
 					
-					if(this.pieceAllience!=pieceAlliance)
+					if(this.pieceAlliance!=pieceAlliance)
 					{
-						legalMoves.add(new Move());
+						legalMoves.add(new Move.AttackMove(board,this,CandidateDestinationCoordinate,pieceAtDestination));
 					}
 				}
 			}
 		}
 		return legalMoves;
 	}
-
+	private static boolean isFirstColumnExclusion(final int currentposition, final int candidateoffset)
+	{
+		return BoardUtils.FIRST_COLOUMN[currentposition] && ((candidateoffset==-17) || (candidateoffset==-10) || (candidateoffset==6)|| (candidateoffset==15));
+	}
+	private static boolean isSecondColumnExclusion(final int currentposition,final int candidateoffset)
+	{
+		return BoardUtils.SECOND_COLOUMN[currentposition] && ((candidateoffset==-10) || candidateoffset==6);
+	}
+	private static boolean isSeventhColumnExclusion(final int currentposition,final int candidateoffset)
+	{
+		return BoardUtils.SEVENTH_COLOUMN[currentposition] && ((candidateoffset==-6) || (candidateoffset==10));
+	}
+	private static boolean isEighthColumnExclusion(final int currentposition,final int candidateoffset)
+	{
+		return BoardUtils.EIGHTH_COLUMN[currentposition] && ((candidateoffset==-15) || (candidateoffset==-6) || (candidateoffset==10) || (candidateoffset==17));
+	}
 	private boolean isValidCoordinate(int candidateDestinationCoordinate) {
-		// TODO Auto-generated method stub
-		return false;
+		return candidateDestinationCoordinate>=0 && candidateDestinationCoordinate<64;
 	}
 }
