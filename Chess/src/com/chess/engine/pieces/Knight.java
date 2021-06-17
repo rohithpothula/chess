@@ -25,13 +25,13 @@ public class Knight extends Piece {
 		
 		final List<Move> legalMoves=new ArrayList<>();
 		
-		for(final int currentcandidate : CANDIDATE_MOVE_COORDINATES)
+		for(final int currentcandidateoffset : CANDIDATE_MOVE_COORDINATES)
 		{
-			if(isFirstColumnExclusion(this.piecePosition,currentcandidate) || isSeventhColumnExclusion(this.piecePosition,currentcandidate) || isSecondColumnExclusion(this.piecePosition,currentcandidate) || isEighthColumnExclusion(this.piecePosition,currentcandidate))
+			if(isFirstColumnExclusion(this.piecePosition,currentcandidateoffset) || isSeventhColumnExclusion(this.piecePosition,currentcandidateoffset) || isSecondColumnExclusion(this.piecePosition,currentcandidateoffset) || isEighthColumnExclusion(this.piecePosition,currentcandidateoffset))
 			{
 				continue;
 			}
-			final int CandidateDestinationCoordinate=this.piecePosition+currentcandidate;
+			final int CandidateDestinationCoordinate=this.piecePosition+currentcandidateoffset;
 			if(isValidCoordinate(CandidateDestinationCoordinate))
 			{
 				final Tile candidateDestinationTile=board.getTile(CandidateDestinationCoordinate);

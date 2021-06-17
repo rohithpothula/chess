@@ -28,6 +28,12 @@ public class Rook extends Piece{
 		for(final int currentCoordinateoffset : CANDIDATE_MOVE_COORDINATES)
 		{
 			int candidateDestinationCoordinate=this.piecePosition;
+			
+			if(isFirstColumnExclusion(candidateDestinationCoordinate, currentCoordinateoffset) || isEighthColumnExclusion(candidateDestinationCoordinate,currentCoordinateoffset))
+			{
+				//here it is difference break;
+				continue;
+			}
 			while(BoardUtils.isValidCoordinate(candidateDestinationCoordinate))
 			{
 				candidateDestinationCoordinate+=currentCoordinateoffset;
