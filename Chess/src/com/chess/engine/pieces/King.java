@@ -9,13 +9,14 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
+import com.chess.engine.pieces.Piece.PieceType;
 import com.chess.engine.board.Tile;
 
 public class King extends Piece{
 
 	private static final int[] CANDIDATE_MOVE_COORDINATES= {1,-1,7,8,9,-7,-8,-9};
 	
-	King(int piecePosition, Alliance pieceAlliance) {
+	public King(int piecePosition, Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance);
 	}
 
@@ -51,6 +52,11 @@ public class King extends Piece{
 			}
 		}
 		return legalmoves;
+	}
+	@Override 
+	public String toString()
+	{
+		return PieceType.KING.toString();
 	}
 	
 	private static boolean isFirstColumnExclusion(final int currentposition,final int candidateoffset)

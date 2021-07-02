@@ -19,7 +19,7 @@ public abstract class Tile {
 	private static Map<Integer, EmptyTile> createAllPossibleEmptyTiles() {
 		final Map<Integer,EmptyTile> emptyTileMap = new HashMap<>();
 		
-		for(int i=0;i<BoardUtils.NUM_TILES;i++)
+		for(int i=0;i<8;i++)
 		{
 			emptyTileMap.put(i,new EmptyTile(i));
 		}
@@ -53,18 +53,35 @@ public abstract class Tile {
 		}
 
 		@Override
+		public String toString()
+		{
+			return "-";
+		}
+		@Override
 		public Piece getPiece() {
 			return null;
 		}
 	}
 	
 	public static final class OccupiedTile extends Tile {
-		private final Piece placeOnTile;
+		private final Piece pieceOnTile;
 		
 		private OccupiedTile(int tileCoordinate,Piece pieceOnTile)
 		{
 			super(tileCoordinate);
-			this.placeOnTile=pieceOnTile;
+			this.pieceOnTile=pieceOnTile;
+		}
+		@Override
+		public String toString ()
+		{
+			if(this.getPiece().getPieceAlliance().isBlack())
+			{
+				return this.getPiece().toString().toLowerCase();
+			}
+			else
+			{
+				return this.getPiece().toString().toUpperCase(); 
+			}
 		}
 		@Override
 		public boolean isTileOccupied()
@@ -73,7 +90,7 @@ public abstract class Tile {
 		}
 		public Piece getPiece()
 		{
-			return this.placeOnTile;
+			return this.pieceOnTile;
 		}
 	}
 }

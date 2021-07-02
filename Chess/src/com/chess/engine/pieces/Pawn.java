@@ -9,11 +9,12 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
+import com.chess.engine.pieces.Piece.PieceType;
 
 public class Pawn extends Piece{
 
 	private final static int[] CANDIDATE_MOVE_COORDINATES= {8,16,7,9};
-	Pawn(final int piecePosition,final Alliance pieceAlliance) {
+	public Pawn(final int piecePosition,final Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance);
 	}
 
@@ -64,6 +65,13 @@ public class Pawn extends Piece{
 			
 		}
 		return legalmoves;
+	}
+	
+	
+	@Override 
+	public String toString()
+	{
+		return PieceType.PAWN.toString();
 	}
 
 }

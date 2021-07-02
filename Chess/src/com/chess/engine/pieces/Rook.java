@@ -10,13 +10,14 @@ import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.AttackMove;
 import com.chess.engine.board.Move.MajorMove;
+import com.chess.engine.pieces.Piece.PieceType;
 import com.chess.engine.board.Tile;
 
 public class Rook extends Piece{
 
 	private static int[] CANDIDATE_MOVE_COORDINATES= {-1,1,-8,8};
 	
-	Rook(int piecePosition, Alliance pieceAlliance) {
+	public Rook(int piecePosition, Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance);
 	}
 
@@ -59,6 +60,14 @@ public class Rook extends Piece{
 		}
 		return legalmoves;
 	}
+	
+	@Override 
+	public String toString()
+	{
+		return PieceType.ROOK.toString();
+	}
+	
+	
 	private static boolean isFirstColumnExclusion(final int currentCoordinate,final int currentoffset) {
 		return BoardUtils.FIRST_COLOUMN[currentCoordinate] && ((currentoffset==-1));
 	}

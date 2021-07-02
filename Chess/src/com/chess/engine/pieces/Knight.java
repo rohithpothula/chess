@@ -8,6 +8,7 @@ import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
+import com.chess.engine.pieces.Piece.PieceType;
 import com.chess.engine.board.BoardUtils;
 
 public class Knight extends Piece {
@@ -15,13 +16,12 @@ public class Knight extends Piece {
 	private final static int[] CANDIDATE_MOVE_COORDINATES = {-17,-15,-10,-6,6,10,15,17};
 	
 	
-	Knight(final int piecePosition, final Alliance pieceAlliance) {
+	public Knight(final int piecePosition, final Alliance pieceAlliance) {
 		super(piecePosition, pieceAlliance);
 	}
 
 	@Override
 	public Collection<Move> calculateLegalMoves(final Board board) {
-		
 		
 		final List<Move> legalMoves=new ArrayList<>();
 		
@@ -53,6 +53,14 @@ public class Knight extends Piece {
 		}
 		return legalMoves;
 	}
+	
+	@Override 
+	public String toString()
+	{
+		return PieceType.KNIGHT.toString();
+	}
+	
+	
 	private static boolean isFirstColumnExclusion(final int currentposition, final int candidateoffset)
 	{
 		return BoardUtils.FIRST_COLOUMN[currentposition] && ((candidateoffset==-17) || (candidateoffset==-10) || (candidateoffset==6)|| (candidateoffset==15));
